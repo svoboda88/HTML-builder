@@ -19,16 +19,16 @@ const getReadFilePromise = (file) => new Promise((resolve) => {
 fs.readdir(stylesFolder, (err, files) => {
   const styleFileNames = files.filter(file => file.match(/\.css$/g));
 
-  fileExists(__dirname + '/project-dist/.bundle.css').then((exists) => {
+  fileExists(__dirname + '/project-dist/bundle.css').then((exists) => {
 
     if(exists) {
-      fs.unlink(__dirname + '/project-dist/.bundle.css', (err) => {
+      fs.unlink(__dirname + '/project-dist/bundle.css', (err) => {
         if(err) console.log(err);
         const readPromises = styleFileNames.map((el) => getReadFilePromise(el));
   
         Promise.all(readPromises).then((values) =>{
   
-          fs.writeFile(__dirname + '/project-dist/.bundle.css', values.join(''), ()=> {});
+          fs.writeFile(__dirname + '/project-dist/bundle.css', values.join(''), ()=> {});
         });
       });
     } else {
@@ -36,7 +36,7 @@ fs.readdir(stylesFolder, (err, files) => {
   
       Promise.all(readPromises).then((values) =>{
   
-        fs.writeFile(__dirname + '/project-dist/.bundle.css', values.join(''), ()=> {});
+        fs.writeFile(__dirname + '/project-dist/bundle.css', values.join(''), ()=> {});
       });
   
     }
